@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatraapi Films — Philosophical Cinema from Mysuru</title>
+    <meta name="description" content="Tatraapi Films is a Mysuru-based production house making philosophical cinema rooted in Indian thought. तत्रापि — even there, even then, nevertheless.">
+    <meta name="theme-color" content="#6E1423">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tatraapi Films — Philosophical Cinema from Mysuru">
+    <meta property="og:description" content="तत्रापि — even there, even then, nevertheless. Stories rooted in Indian thought, made for the world.">
+    <meta property="og:image" content="assets/hero_tatraapi_clean.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Hanken+Grotesk:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+
+    <link rel="preload" as="image" href="assets/hero_tatraapi_clean.jpg">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Shared SVG symbols -->
+    <svg class="svg-sprite" aria-hidden="true" focusable="false">
+        <symbol id="icon-lotus" viewBox="0 0 64 40">
+            <path d="M32 4c5 7 7 14 0 26C25 18 27 11 32 4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M18 10c7 3 12 9 14 20-10-2-15-9-14-20Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M46 10c-7 3-12 9-14 20 10-2 15-9 14-20Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M4 22c9-1 20 1 28 8-11 4-22 2-28-8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M60 22c-9-1-20 1-28 8 11 4 22 2 28-8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-arrow" viewBox="0 0 24 24">
+            <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-upload" viewBox="0 0 24 24">
+            <path d="M12 16V5M7.5 9.5 12 5l4.5 4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-copy" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M15 5H6a2 2 0 0 0-2 2v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24">
+            <path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-instagram" viewBox="0 0 24 24">
+            <rect x="4" y="4" width="16" height="16" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <circle cx="16.6" cy="7.4" r="1" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-youtube" viewBox="0 0 24 24">
+            <rect x="3" y="6" width="18" height="12" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <path d="m10.5 9.5 4.5 2.5-4.5 2.5Z" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-facebook" viewBox="0 0 24 24">
+            <path d="M14.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.5V4.4c-.3 0-1.200-.1-2.200-.1-2.300 0-3.800 1.400-3.800 3.900v2.300H9v3h2.600V21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-x" viewBox="0 0 24 24">
+            <path d="M5 4.500 19 19.500M19 4.500 5 19.500" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-linkedin" viewBox="0 0 24 24">
+            <rect x="4" y="4" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M8.200 10.800V16M8.200 8v.1M11.800 16v-5.200M11.800 13.200c0-1.500 1-2.400 2.200-2.400s2 .9 2 2.400V16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </symbol>
+    </svg>
+
+    <!-- Scroll progress -->
+    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+    <!-- ==================== Header ==================== -->
+    <header class="site-header" id="siteHeader">
+        <div class="nav-container">
+            <a class="nav-logo" href="#home" aria-label="Tatraapi Films — back to top">
+                <span class="nav-logo-deva" lang="sa">तत्रापि</span>
+                <span class="nav-logo-latin">Tatraapi Films</span>
+            </a>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav aria-label="Primary">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#film">Film</a></li>
+                    <li><a href="#news">Enquiry &amp; News</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+
+        <!-- ==================== 1 · Home ==================== -->
+        <section class="section section--home" id="home" data-spy>
+            <div class="hero-stage">
+                <img class="hero-image"
+                     src="assets/hero_tatraapi_clean.jpg" width="1024" height="430"
+                     alt="A brass and maroon sculpture of the word तत्रापि on a wooden altar table, with a small brass Bal Krishna holding a butter pot on the left and a seated wooden robot on the right."
+                     fetchpriority="high">
+                <div class="hero-overlay">
+                    <h1 class="visually-hidden">Tatraapi Films — <span lang="sa">तत्रापि</span></h1>
+                    <p class="hero-tagline">Stories rooted in Indian thought for a global audience</p>
+                </div>
+            </div>
+
+            <!-- Etymology strip, flush beneath the altar table -->
+            <div class="ety-strip" aria-label="What the name Tatraapi means">
+                <div class="container ety-grid">
+                    <div class="ety-col">
+                        <p class="ety-deva" lang="sa">तत्र</p>
+                        <p class="ety-gloss">there</p>
+                    </div>
+                    <div class="ety-col ety-col--divided">
+                        <p class="ety-deva" lang="sa">अपि</p>
+                        <p class="ety-gloss">even / also</p>
+                    </div>
+                    <div class="ety-col ety-col--meaning">
+                        <p class="ety-meaning">Even there · Even then · Nevertheless</p>
+                        <p class="ety-dash" aria-hidden="true">—</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 2 · About Us ==================== -->
+        <section class="section section--about parallax-section" id="about" data-spy>
+            <img class="parallax-bg" data-speed="0.45"
+                 src="assets/varanasi_ghats_clean.jpg" width="1376" height="768" loading="lazy"
+                 alt="The ghats of Varanasi at sunset: stone steps descending to the Ganga, temple spires, wooden boats and floating diyas, with a saffron-robed humanoid robot reading a manuscript on the steps.">
+            <div class="section-overlay" aria-hidden="true"></div>
+            <div class="section-fade-top" aria-hidden="true"></div>
+
+            <div class="container">
+                <div class="about-head">
+                    <div>
+                        <p class="eyebrow eyebrow--light"><span lang="hi">०२</span> · About Us</p>
+                        <h2 class="section-title section-title--light">Stories from the ghats of thought</h2>
+                        <p class="section-intro section-intro--light">Tatraapi Films is a new production house based in Mysuru. We tell stories rooted in Indian thought for an audience anywhere on earth — unhurried, carefully made, and unafraid of silence.</p>
+                    </div>
+
+                    <!-- Rotating cultural seal -->
+                    <div class="seal" aria-hidden="true">
+                        <svg class="seal-ring rotating-seal" viewBox="0 0 200 200">
+                            <defs>
+                                <path id="sealPath" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/>
+                            </defs>
+                            <text><textPath href="#sealPath" textLength="446" lengthAdjust="spacing">TATRAAPI FILMS • MYSURU • INDIAN CINEMA •</textPath></text>
+                        </svg>
+                        <svg class="seal-core"><use href="#icon-lotus"/></svg>
+                    </div>
+                </div>
+
+                <div class="pillars">
+                    <article class="pillar pillar-card reveal">
+                        <p class="pillar-label">Mission</p>
+                        <h3 class="pillar-title">To make films that think</h3>
+                        <p>We make cinema that treats the audience as a seeker, not a consumer. Each film starts from a question the Indian philosophical tradition has carried for centuries, and follows it honestly through character, image and sound.</p>
+                        <p>We work from Mysuru, with collaborators who care about craft as much as meaning.</p>
+                    </article>
+                    <article class="pillar pillar-card reveal">
+                        <p class="pillar-label">Vision</p>
+                        <h3 class="pillar-title">Indian thought, in a global language</h3>
+                        <p>We want a viewer in any country to walk out of a Tatraapi film carrying an idea they did not walk in with — and to feel it was told to them plainly, without translation notes.</p>
+                        <p>Old wisdom and new tools belong at the same table. We intend to seat them there.</p>
+                    </article>
+                </div>
+
+                <h3 class="subhead subhead--light">Four things we keep returning to</h3>
+                <div class="values-grid reveal">
+                    <article class="box-portfolio-4 donal-card" tabindex="0">
+                        <img class="card-bg-img" src="assets/temple_feature_banner_clean.jpg" style="object-position: 78% 62%;" alt="" loading="lazy">
+                        <div class="card-content">
+                            <div class="card-icon" aria-hidden="true"><span lang="sa">कर्म</span></div>
+                            <h4 class="card-title">Karma</h4>
+                            <p class="card-text">Every act leaves a trace. Our stories follow the trace — how a choice travels through a life, and through the lives around it.</p>
+                            <a class="card-btn" href="#film">See the film</a>
+                        </div>
+                    </article>
+                    <article class="box-portfolio-4 donal-card" tabindex="0">
+                        <img class="card-bg-img" src="assets/hero_tatraapi_clean.jpg" style="object-position: 87% 60%;" alt="" loading="lazy">
+                        <div class="card-content">
+                            <div class="card-icon" aria-hidden="true"><span lang="sa">चैतन्य</span></div>
+                            <h4 class="card-title">Consciousness</h4>
+                            <p class="card-text">Who is the one watching? We are drawn to the oldest question in the tradition, and to what a camera can and cannot show of it.</p>
+                            <a class="card-btn" href="#film">See the film</a>
+                        </div>
+                    </article>
+                    <article class="box-portfolio-4 donal-card" tabindex="0">
+                        <img class="card-bg-img" src="assets/sandhyavandana_banner_clean.jpg" style="object-position: 35% 40%;" alt="" loading="lazy">
+                        <div class="card-content">
+                            <div class="card-icon" aria-hidden="true"><span lang="sa">धर्म</span></div>
+                            <h4 class="card-title">Dharma</h4>
+                            <p class="card-text">Not rule, but rightness — what a person owes to the moment in front of them. Drama lives exactly where that is unclear.</p>
+                            <a class="card-btn" href="#film">See the film</a>
+                        </div>
+                    </article>
+                    <article class="box-portfolio-4 donal-card" tabindex="0">
+                        <img class="card-bg-img" src="assets/mysore_palace_footer_clean.jpg" style="object-position: 50% 30%;" alt="" loading="lazy">
+                        <div class="card-content">
+                            <div class="card-icon" aria-hidden="true"><span lang="sa">ब्रह्माण्ड</span></div>
+                            <h4 class="card-title">The Cosmic</h4>
+                            <p class="card-text">The small human story set against the very large one. We like films that can hold a kitchen and a galaxy in the same frame.</p>
+                            <a class="card-btn" href="#film">See the film</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section-fade-bottom" aria-hidden="true"></div>
+        </section>
+
+        <!-- ==================== Interlude · Sandhyavandana ==================== -->
+        <section class="section section--interlude parallax-section" id="sandhya" aria-labelledby="sandhyaTitle">
+            <img class="parallax-bg" data-speed="0.45"
+                 src="assets/sandhyavandana_banner_clean.jpg" width="2048" height="860" loading="lazy"
+                 alt="A man in a white dhoti stands at the river's edge with his back to the viewer, pouring water from a copper vessel held above his head toward the sun on the horizon. Diyas burn on the stone steps.">
+            <div class="section-overlay" aria-hidden="true"></div>
+            <div class="section-fade-top" aria-hidden="true"></div>
+
+            <div class="container">
+                <div class="interlude-content reveal">
+                    <h2 class="eyebrow eyebrow--light" id="sandhyaTitle">Interlude · Sandhyavandana</h2>
+                    <p class="interlude-verse" lang="sa">उद्यन्तमस्तं यन्तमादित्यमभिध्यायन्</p>
+                    <p class="interlude-sub">At the meeting points of the day, water is offered to the rising and setting sun. We begin our work in the same spirit.</p>
+                </div>
+            </div>
+
+            <div class="section-fade-bottom" aria-hidden="true"></div>
+        </section>
+
+        <!-- ==================== 3 · Film ==================== -->
+        <section class="section section--film parallax-section" id="film" data-spy>
+            <img class="parallax-bg" data-speed="0.45"
+                 src="assets/temple_feature_banner_clean.jpg" width="1376" height="768" loading="lazy"
+                 alt="A woman in a maroon and gold silk saree, jasmine in her hair, walks through a carved stone temple corridor toward a sunlit gopuram, carrying a small lamp.">
+            <div class="section-overlay" aria-hidden="true"></div>
+            <div class="section-fade-top" aria-hidden="true"></div>
+
+            <div class="container">
+                <p class="eyebrow eyebrow--light"><span lang="hi">०३</span> · Film · Our debut feature</p>
+
+                <article class="film-feature">
+                    <div class="film-main reveal">
+                        <span class="badge">In Development</span>
+                        <h2 class="film-title">Untitled Feature</h2>
+                        <p class="film-logline">A woman’s journey through memory, faith and consequence unfolds across a changing India, where the seen and unseen meet.</p>
+                        <ul class="tag-list" aria-label="Themes">
+                            <li>Spirituality</li>
+                            <li>Consciousness</li>
+                            <li>Karma</li>
+                            <li>The Cosmic</li>
+                        </ul>
+                    </div>
+
+                    <dl class="film-specs reveal">
+                        <div><dt>Status</dt><dd>In development</dd></div>
+                        <div><dt>Format</dt><dd>Feature film</dd></div>
+                        <div><dt>Genre</dt><dd>Philosophical drama</dd></div>
+                        <div><dt>Production</dt><dd>Tatraapi Films, Mysuru</dd></div>
+                        <div><dt>Poster &amp; teaser</dt><dd>To be announced</dd></div>
+                    </dl>
+                </article>
+
+                <h3 class="subhead subhead--light">Core team</h3>
+                <div class="card-grid card-grid--3 team-grid">
+                    <article class="box-portfolio-4 donal-card reveal" tabindex="0">
+                        <img class="card-bg-img" src="assets/temple_feature_banner_clean.jpg" style="object-position: 26% 45%;" alt="" loading="lazy">
+                        <div class="card-content">
+                            <div class="card-icon" aria-hidden="true">JA</div>
+                            <p class="card-kicker">Director</p>
+                            <h4 class="card-title">Jaishankar Aryar</h4>
+                            <p class="card-text">Founder of Tatraapi Films and director of its debut feature. Leads the studio's creative direction from Mysuru.</p>
+                            <a class="card-btn" href="#enquiry">Work with us</a>
+                        </div>
+                    </article>
+                    <article class="box-portfolio-4 donal-card reveal" tabindex="0">
+                        <img class="card-bg-img" src="assets/mysore_palace_footer_clean.jpg" style="object-position: 50% 62%;" alt="" loading="lazy">
+                        <div class="card-content">
+                            <div class="card-icon" aria-hidden="true"><svg><use href="#icon-lotus"/></svg></div>
+                            <p class="card-kicker">Producer</p>
+                            <h4 class="card-title">To be announced</h4>
+                            <p class="card-text">Steers the feature from development through to release — financing, schedule, and the people who make it possible.</p>
+                            <a class="card-btn" href="#enquiry">Work with us</a>
+                        </div>
+                    </article>
+                    <article class="box-portfolio-4 donal-card reveal" tabindex="0">
+                        <img class="card-bg-img" src="assets/varanasi_ghats_clean.jpg" style="object-position: 26% 78%;" alt="" loading="lazy">
+                        <div class="card-content">
+                            <div class="card-icon" aria-hidden="true"><svg><use href="#icon-lotus"/></svg></div>
+                            <p class="card-kicker">Writer</p>
+                            <h4 class="card-title">To be announced</h4>
+                            <p class="card-text">Shapes the screenplay, carrying ideas from the philosophical tradition into character, scene and dialogue.</p>
+                            <a class="card-btn" href="#enquiry">Work with us</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section-fade-bottom" aria-hidden="true"></div>
+        </section>
+
+        <!-- ==================== 4 · Enquiry & News ==================== -->
+        <section class="section section--news" id="news" data-spy>
+            <div class="container">
+                <p class="eyebrow"><span lang="hi">०४</span> · Enquiry &amp; News</p>
+                <h2 class="section-title">Studio dispatches</h2>
+                <p class="section-intro">Short notes from the studio as the work moves forward.</p>
+
+                <div class="card-grid card-grid--3">
+                    <article class="news-card reveal">
+                        <p class="news-date"><time datetime="2026-10">October 2026</time></p>
+                        <h3>Tatraapi Films opens in Mysuru</h3>
+                        <p>The studio is formally under way. A small team, one feature, and a name that means “nevertheless”.</p>
+                        <a class="btn-read" href="#about">About the studio</a>
+                    </article>
+                    <article class="news-card reveal">
+                        <p class="news-date"><time datetime="2026-10">October 2026</time></p>
+                        <h3>Debut feature enters development</h3>
+                        <p>Our first film, currently untitled, is in development. Title, poster and teaser will be shared here first.</p>
+                        <a class="btn-read" href="#film">See the film</a>
+                    </article>
+                    <article class="news-card reveal">
+                        <p class="news-date"><time datetime="2026-10">October 2026</time></p>
+                        <h3>Open call for collaborators</h3>
+                        <p>Actors, writers, crew, designers and social media storytellers — we are reading every enquiry that comes in.</p>
+                        <a class="btn-read" href="#enquiry">Send an enquiry</a>
+                    </article>
+                </div>
+
+                <div class="enquiry" id="enquiry">
+                    <div class="enquiry-aside">
+                        <svg class="enquiry-lotus" aria-hidden="true"><use href="#icon-lotus"/></svg>
+                        <h3 class="enquiry-title">Talent &amp; Collaboration Intake</h3>
+                        <p>Tell us who you are and what you would like to do with us. A link to your work says more than a long message — include one if you can.</p>
+                        <ul class="enquiry-points">
+                            <li>We read every submission.</li>
+                            <li>CVs are optional: PDF, DOC or DOCX, up to 5&nbsp;MB.</li>
+                            <li>Fields marked * are required.</li>
+                        </ul>
+                    </div>
+
+                    <form class="enquiry-form" id="enquiryForm" novalidate data-endpoint="" data-mailto="hello@tatraapifilms.com">
+                        <!-- Honeypot: hidden from people, tempting to bots -->
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="f-website">Leave this field empty</label>
+                            <input type="text" id="f-website" name="company_website" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field">
+                                <input type="text" id="f-name" name="name" placeholder=" " autocomplete="name" required aria-describedby="f-name-err">
+                                <label for="f-name">Full name *</label>
+                                <p class="field-error" id="f-name-err" role="alert"></p>
+                            </div>
+                            <div class="field">
+                                <input type="email" id="f-email" name="email" placeholder=" " autocomplete="email" required aria-describedby="f-email-err">
+                                <label for="f-email">Email *</label>
+                                <p class="field-error" id="f-email-err" role="alert"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field">
+                                <input type="tel" id="f-phone" name="phone" placeholder=" " autocomplete="tel" inputmode="tel" required aria-describedby="f-phone-err">
+                                <label for="f-phone">Phone *</label>
+                                <p class="field-error" id="f-phone-err" role="alert"></p>
+                            </div>
+                            <div class="field field--select">
+                                <select id="f-role" name="role" required aria-describedby="f-role-err">
+                                    <option value="" selected disabled>Choose one</option>
+                                    <option>Acting</option>
+                                    <option>Writing</option>
+                                    <option>Crew</option>
+                                    <option>Design</option>
+                                    <option>Social Media</option>
+                                    <option>Collaboration</option>
+                                    <option>Other</option>
+                                </select>
+                                <label for="f-role">Role / enquiry type *</label>
+                                <p class="field-error" id="f-role-err" role="alert"></p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <input type="url" id="f-portfolio" name="portfolio" placeholder=" " autocomplete="url" aria-describedby="f-portfolio-err">
+                            <label for="f-portfolio">Portfolio / showreel link</label>
+                            <p class="field-error" id="f-portfolio-err" role="alert"></p>
+                        </div>
+
+                        <div class="field field--textarea">
+                            <textarea id="f-message" name="message" placeholder=" " rows="5" aria-describedby="f-message-err"></textarea>
+                            <label for="f-message">Message</label>
+                            <p class="field-error" id="f-message-err" role="alert"></p>
+                        </div>
+
+                        <div class="field field--file">
+                            <input type="file" id="f-cv" name="cv" class="visually-hidden" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" aria-describedby="f-cv-err">
+                            <label class="upload" for="f-cv" id="cvDrop">
+                                <span class="upload-icon"><svg aria-hidden="true"><use href="#icon-upload"/></svg></span>
+                                <span class="upload-text">
+                                    <span class="upload-title">Upload your CV</span>
+                                    <span class="upload-hint" id="cvName">Drop a file here or browse · PDF, DOC, DOCX · up to 5 MB</span>
+                                </span>
+                            </label>
+                            <button type="button" class="upload-clear" id="cvClear" hidden>Remove file</button>
+                            <p class="field-error" id="f-cv-err" role="alert"></p>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn" id="enquirySubmit">
+                                <span>Send enquiry</span>
+                                <span class="btn-icon"><svg aria-hidden="true"><use href="#icon-arrow"/></svg></span>
+                            </button>
+                            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+
+                    <div class="enquiry-success" id="enquirySuccess" hidden tabindex="-1">
+                        <span class="success-mark"><svg aria-hidden="true"><use href="#icon-check"/></svg></span>
+                        <h3>Dhanyavaad — thank you.</h3>
+                        <p id="successMessage">Your enquiry is on its way to us.</p>
+                        <button type="button" class="btn btn--ghost" id="enquiryReset">
+                            <span>Send another</span>
+                            <span class="btn-icon"><svg aria-hidden="true"><use href="#icon-arrow"/></svg></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 5 · Contact Us & Footer ==================== -->
+        <section class="section section--contact parallax-section" id="contact" data-spy>
+            <img class="parallax-bg" data-speed="0.45"
+                 src="assets/mysore_palace_footer_clean.jpg" width="1376" height="768" loading="lazy"
+                 alt="Mysore Palace at dusk, every arch and dome outlined in golden lights under a pink and violet sky, with Chamundi Hill rising behind it.">
+            <div class="section-overlay" aria-hidden="true"></div>
+            <div class="section-fade-top" aria-hidden="true"></div>
+
+            <div class="container contact-head">
+                <p class="eyebrow"><span lang="hi">०५</span> · Contact Us</p>
+                <h2 class="section-title">Let’s make something that lasts.</h2>
+            </div>
+
+            <div class="contact-foot">
+                <div class="container">
+                    <div class="contact-grid">
+                        <div class="contact-block">
+                            <h3>Email</h3>
+                            <div class="email-row">
+                                <a class="email-link" href="mailto:hello@tatraapifilms.com">hello@tatraapifilms.com</a>
+                                <button type="button" class="copy-btn" id="copyEmail" data-copy="hello@tatraapifilms.com" aria-label="Copy email address">
+                                    <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                                    <span class="copy-label">Copy</span>
+                                </button>
+                            </div>
+                            <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
+                        </div>
+
+                        <div class="contact-block">
+                            <h3>Studio</h3>
+                            <p>Tatraapi Films · Mysuru, Karnataka, India</p>
+                        </div>
+
+                        <div class="contact-block">
+                            <h3>Follow</h3>
+                            <ul class="social-list">
+                                <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg aria-hidden="true"><use href="#icon-instagram"/></svg></a></li>
+                                <li><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg aria-hidden="true"><use href="#icon-youtube"/></svg></a></li>
+                                <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg aria-hidden="true"><use href="#icon-facebook"/></svg></a></li>
+                                <li><a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X"><svg aria-hidden="true"><use href="#icon-x"/></svg></a></li>
+                                <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#icon-linkedin"/></svg></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="site-footer">
+                    <div class="container footer-inner">
+                        <a class="footer-logo" href="#home" aria-label="Tatraapi Films — back to top">
+                            <span lang="sa">तत्रापि</span>
+                        </a>
+                        <p class="footer-line">Even there. Even then. Nevertheless.</p>
+                        <p class="footer-copy">&copy; <span id="year">2026</span> Tatraapi Films, Mysuru. All rights reserved.</p>
+                    </div>
+                </footer>
+            </div>
+        </section>
+
+    </main>
+
+    <a class="back-to-top" id="backToTop" href="#home" aria-label="Back to top">
+        <svg aria-hidden="true"><use href="#icon-arrow"/></svg>
+    </a>
+
+</body>
+</html>

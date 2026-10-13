@@ -1,0 +1,9 @@
+# Ignore reference template folders
+donal_farm/
+templatemo_612_parallax_starter/
+
+# Ignore OS & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

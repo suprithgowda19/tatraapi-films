@@ -1,0 +1,2189 @@
+/* ==========================================================================
+   Tatraapi Films — styles.css
+
+   Visual identity : Donal Farm (warm artisanal tokens, continuous section
+                     flow, hairline-ruled cards, pill buttons, form fields)
+   Motion          : TemplateMo 612 Parallax Starter (.parallax-section /
+                     .parallax-bg, driven by app.js)
+   ========================================================================== */
+
+/* --- Design tokens --- */
+:root {
+    /* Donal Farm palette, re-keyed for Tatraapi */
+    --canvas-bg: #FBF5EA;        /* sandalwood parchment */
+    --canvas-deep: #F3E8D2;      /* deeper parchment for alternating sections */
+    --card-bg: #FFFFFF;
+    --canvas-card: #FFFFFF;
+    --kumkum: #6E1423;           /* kumkum maroon */
+    --kumkum-deep: #4A0C17;
+    --brass: #B8892B;            /* temple gold / brass */
+    --brass-soft: #DDBE7C;
+    --brass-ink: #8A6418;        /* brass dark enough for small text on parchment */
+    --saffron: #E07A1F;
+    --timber-dark: #1E1510;      /* deep timber */
+    --timber: #3A2A1F;
+    --ink-soft: #5E4E42;
+    --cream-90: rgba(251, 245, 234, 0.9);
+    --cream-70: rgba(251, 245, 234, 0.72);
+    --hairline: rgba(30, 21, 16, 0.12);
+    --hairline-strong: rgba(30, 21, 16, 0.15);
+    --hairline-light: rgba(221, 190, 124, 0.35);
+    --line: rgba(184, 137, 43, 0.45);
+    --error: #A3261B;
+
+    --font-deva: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', serif;
+    --font-heading: 'Cormorant Garamond', 'Times New Roman', serif;
+    --font-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --header-h: 72px;
+    --container: 1160px;
+    --gutter: 30px;
+    --radius: 4px;
+    --radius-pill: 28px;
+    --transition-smooth: 0.3s ease;
+}
+
+/* --- Reset & base --- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 12px);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--timber-dark);
+    background: var(--canvas-bg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img,
+svg,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--saffron);
+    outline-offset: 3px;
+}
+
+.svg-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.skip-link {
+    position: fixed;
+    top: -60px;
+    left: 16px;
+    z-index: 2000;
+    padding: 10px 18px;
+    background: var(--kumkum);
+    color: var(--canvas-bg);
+    border-radius: 0 0 var(--radius) var(--radius);
+    transition: top var(--transition-smooth);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+/* --- Scroll progress --- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    z-index: 1100;
+    pointer-events: none;
+}
+
+.scroll-progress span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--brass), var(--saffron));
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+}
+
+/* ==========================================================================
+   Header / navigation — transparent bar, hairline divider, text links
+   ========================================================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    border-bottom: 1px solid var(--hairline-strong);
+    transition: background var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+/* Once the page moves, the bar picks up a parchment blur so the links stay
+   readable over the dark sections */
+.site-header.scrolled {
+    background: rgba(251, 245, 234, 0.86);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+}
+
+.nav-container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    color: var(--kumkum);
+    white-space: nowrap;
+}
+
+.nav-logo-deva {
+    font-family: var(--font-deva);
+    font-size: 28px;
+    line-height: 1;
+}
+
+.nav-logo-latin {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--timber);
+}
+
+.nav-links {
+    display: flex;
+    gap: 34px;
+}
+
+.nav-links a {
+    position: relative;
+    display: block;
+    padding: 6px 0;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    color: var(--timber-dark);
+    transition: color var(--transition-smooth);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--kumkum);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform var(--transition-smooth);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--kumkum);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: scaleX(1);
+}
+
+.nav-toggle {
+    display: none;
+    position: relative;
+    z-index: 2;
+    background: none;
+    border: none;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--timber-dark);
+    transition: all var(--transition-smooth);
+}
+
+/* ==========================================================================
+   Sections — continuous flow
+   --------------------------------------------------------------------------
+   Image-backed sections stack four layers:
+     0  .parallax-bg       the photograph
+     1  .section-overlay   atmospheric gradient for legibility
+     2  .section-fade-*    dissolves into the neighbouring section's tone
+     3  .container         headings, text and cards, floating on top
+   --bg-base is the tone the photograph melts into, --bg-prev / --bg-next the
+   tones at the top and bottom joins.
+   ========================================================================== */
+.section {
+    position: relative;
+}
+
+.section--home {
+    background: var(--canvas-bg);
+}
+
+.section--about {
+    --bg-base: #141118;
+    --bg-prev: var(--canvas-bg);
+    --bg-next: #141118;
+    padding: 230px 0 210px;
+    color: var(--cream-90);
+}
+
+.section--interlude {
+    --bg-base: #141118;
+    --bg-prev: #141118;
+    --bg-next: #4A0E18;
+    display: flex;
+    align-items: flex-end;
+    min-height: 88vh;
+    padding: 220px 0 200px;
+    color: var(--cream-90);
+}
+
+.section--film {
+    --bg-base: #4A0E18;
+    --bg-prev: #4A0E18;
+    --bg-next: var(--canvas-bg);
+    padding: 200px 0 260px;
+    color: var(--cream-90);
+}
+
+.section--news {
+    padding: 110px 0 130px;
+    background: var(--canvas-bg);
+}
+
+.section--contact {
+    --bg-base: #141118;
+    --bg-prev: var(--canvas-bg);
+    --mask-start: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 106vh;
+    padding: 150px 0 0;
+    color: var(--cream-90);
+}
+
+.section > .container,
+.contact-foot {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+}
+
+.section-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Seamless gradient blends between sections */
+.section-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    background: linear-gradient(to bottom, transparent 0%, var(--bg-next) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.section-fade-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    background: linear-gradient(to top, transparent 0%, var(--bg-prev) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* --- Typography --- */
+.eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brass-ink);
+    margin-bottom: 18px;
+}
+
+.eyebrow [lang="hi"] {
+    font-family: var(--font-deva);
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.eyebrow--light {
+    color: var(--brass-soft);
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.3px;
+    color: var(--kumkum);
+    max-width: 18ch;
+    margin-bottom: 20px;
+    text-wrap: balance;
+}
+
+.section-title--light {
+    color: var(--canvas-bg);
+}
+
+.section-intro {
+    max-width: 62ch;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+}
+
+.section-intro--light {
+    color: var(--cream-90);
+}
+
+.subhead {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(26px, 3vw, 34px);
+    color: var(--kumkum);
+    margin: 72px 0 28px;
+}
+
+.subhead--light {
+    color: var(--canvas-bg);
+}
+
+/* ==========================================================================
+   Buttons (Donal Farm pill hierarchy)
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 6px 6px 6px 30px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--canvas-bg);
+    background: var(--kumkum);
+    border: 1px solid var(--kumkum);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background var(--transition-smooth), color var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.btn-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--brass-soft);
+    color: var(--kumkum-deep);
+    transition: transform var(--transition-smooth), background var(--transition-smooth);
+}
+
+.btn-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn:hover {
+    background: var(--kumkum-deep);
+    border-color: var(--kumkum-deep);
+}
+
+.btn:hover .btn-icon {
+    transform: rotate(-35deg);
+    background: var(--canvas-bg);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn--ghost {
+    color: var(--kumkum);
+    background: transparent;
+    border-color: var(--brass);
+}
+
+.btn--ghost:hover {
+    color: var(--canvas-bg);
+    background: var(--kumkum);
+    border-color: var(--kumkum);
+}
+
+.btn[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.btn-read {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--kumkum);
+}
+
+.btn-read::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--brass);
+    transform-origin: 0 50%;
+    transition: transform var(--transition-smooth);
+}
+
+.btn-read:hover::after {
+    transform: scaleX(0.35);
+}
+
+/* ==========================================================================
+   Parallax (TemplateMo 612) — photographs as full section backgrounds
+   --------------------------------------------------------------------------
+   .parallax-section clips; .parallax-bg overshoots it by --shift above and
+   below, which is the room app.js needs to translate it (at data-speed 0.25
+   the image travels up to 12.5vh either way, so --shift defaults to 13vh).
+   The image is capped at 150vh so a very tall section does not blow the
+   photograph up until it is soft; past that point it melts into --bg-base
+   through the mask.
+   ========================================================================== */
+.parallax-section {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-base, var(--timber-dark));
+}
+
+.parallax-bg {
+    position: absolute;
+    left: 0;
+    top: -28%;
+    width: 100%;
+    height: 156%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center center;
+    will-change: transform;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 0;
+}
+
+/* ==========================================================================
+   1 · Home — full-width immersive altar
+   ========================================================================== */
+.hero-stage {
+    position: relative;
+    background: var(--timber-dark);
+}
+
+.hero-image {
+    width: 100%;
+    min-height: 70vh;
+    max-height: 85vh;
+    object-fit: cover;
+    object-position: center bottom;
+}
+
+/* A breath of parchment behind the transparent nav */
+.hero-stage::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 130px;
+    background: linear-gradient(180deg, rgba(251, 245, 234, 0.7), rgba(251, 245, 234, 0));
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* The table dissolves into the parchment strip below */
+.hero-stage::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 30%;
+    background: linear-gradient(0deg,
+        var(--canvas-bg) 0%,
+        rgba(251, 245, 234, 0.82) 34%,
+        rgba(251, 245, 234, 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 0 var(--gutter) 22px;
+    text-align: center;
+}
+
+.hero-tagline {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(22px, 2.5vw, 34px);
+    line-height: 1.25;
+    color: var(--timber-dark);
+    text-wrap: balance;
+}
+
+.hero-tagline::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: #6E1423;
+    margin: 12px auto;
+}
+
+/* --- Etymology strip --- */
+.ety-strip {
+    background: #FBF5EA;
+    padding: 34px 0 44px;
+}
+
+.ety-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.7fr;
+    align-items: center;
+}
+
+.ety-col {
+    padding: 6px 28px;
+    text-align: center;
+}
+
+.ety-col--divided {
+    border-right: 1px solid rgba(30, 21, 16, 0.15);
+}
+
+.ety-deva {
+    font-family: var(--font-deva);
+    font-size: 42px;
+    line-height: 1.35;
+    color: #6E1423;
+}
+
+.ety-gloss {
+    font-size: 16px;
+    color: var(--ink-soft);
+}
+
+.ety-meaning {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--timber-dark);
+}
+
+.ety-dash {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--kumkum);
+}
+
+/* ==========================================================================
+   2 · About — Varanasi ghats behind, content on top
+   ========================================================================== */
+.section--about .parallax-bg {
+    object-position: 40% 50%;
+}
+
+/* Dark twilight vignette: the gradient sets the tone, the ellipse closes the corners */
+.section--about .section-overlay {
+    background:
+        radial-gradient(ellipse 85% 60% at 50% 34%, rgba(20, 17, 24, 0) 30%, rgba(20, 17, 24, 0.5) 100%),
+        linear-gradient(to bottom, rgba(20, 17, 24, 0.85) 0%, rgba(20, 17, 24, 0.6) 50%, rgba(20, 17, 24, 0.92) 100%);
+}
+
+.about-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: 64px;
+}
+
+.about-head .section-intro {
+    margin-bottom: 0;
+}
+
+/* Mission & Vision: translucent ivory glass, brass border */
+.pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+.pillar {
+    padding: 40px;
+    background: rgba(251, 245, 234, 0.13);
+    backdrop-filter: blur(14px) saturate(1.25);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
+    border: 1px solid rgba(184, 137, 43, 0.65);
+    border-radius: 4px;
+}
+
+.pillar-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+    margin-bottom: 10px;
+}
+
+.pillar-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.15;
+    color: var(--canvas-bg);
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--hairline-light);
+}
+
+.pillar p + p {
+    margin-top: 14px;
+}
+
+.pillar p:not(.pillar-label) {
+    color: var(--cream-90);
+}
+
+/* --- Four values: Donal Farm portfolio cards (see .box-portfolio-4) --- */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* --- Editorial card grids --- */
+.card-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.card-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ==========================================================================
+   Interlude · Sandhyavandana — verse set directly on the photograph
+   ========================================================================== */
+/* Golden at the sky, dusk at the water, with extra depth behind the text */
+.section--interlude .section-overlay {
+    background:
+        linear-gradient(to left, rgba(20, 17, 24, 0.74) 0%, rgba(20, 17, 24, 0.28) 46%, rgba(20, 17, 24, 0) 70%),
+        linear-gradient(to bottom, rgba(224, 122, 31, 0.24) 0%, rgba(184, 100, 43, 0.1) 34%, rgba(74, 14, 24, 0.5) 72%, rgba(20, 17, 24, 0.9) 100%);
+}
+
+.interlude-content {
+    max-width: 580px;
+    margin-left: auto;
+}
+
+.interlude-verse {
+    font-family: var(--font-deva);
+    font-size: clamp(27px, 3.3vw, 46px);
+    line-height: 1.5;
+    color: #F8E3AE;
+    text-shadow: 0 2px 22px rgba(20, 17, 24, 0.75);
+    overflow-wrap: anywhere;
+}
+
+.interlude-verse::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: var(--brass-soft);
+    margin: 22px 0;
+}
+
+.interlude-sub {
+    font-family: var(--font-heading);
+    font-size: clamp(20px, 1.9vw, 25px);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--canvas-bg);
+    text-shadow: 0 1px 14px rgba(20, 17, 24, 0.8);
+}
+
+/* ==========================================================================
+   3 · Film — temple corridor behind, the feature on top
+   ========================================================================== */
+.section--film .parallax-bg {
+    object-position: 60% 50%;
+}
+
+.section--film .section-overlay {
+    background: linear-gradient(to bottom, rgba(110, 20, 35, 0.88), rgba(30, 21, 16, 0.75), rgba(74, 14, 24, 0.92));
+}
+
+.film-feature {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+/* "In Development": a brass badge with a slow glow */
+.badge {
+    display: inline-block;
+    padding: 8px 18px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--timber-dark);
+    background: var(--brass-soft);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 0 0 1px rgba(221, 190, 124, 0.5), 0 0 22px rgba(224, 160, 60, 0.65);
+    animation: badgeGlow 2.8s ease-in-out infinite;
+    margin-bottom: 22px;
+}
+
+@keyframes badgeGlow {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(221, 190, 124, 0.5), 0 0 14px rgba(224, 160, 60, 0.4); }
+    50%      { box-shadow: 0 0 0 1px rgba(221, 190, 124, 0.8), 0 0 34px rgba(224, 160, 60, 0.9); }
+}
+
+.film-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 1.02;
+    color: var(--canvas-bg);
+    margin-bottom: 20px;
+}
+
+.film-logline {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(21px, 2.2vw, 27px);
+    line-height: 1.45;
+    color: var(--cream-90);
+    max-width: 32ch;
+    margin-bottom: 30px;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-list li {
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--brass-soft);
+    border: 1px solid rgba(221, 190, 124, 0.55);
+    border-radius: var(--radius-pill);
+}
+
+.film-specs {
+    padding: 14px 32px;
+    background: rgba(251, 245, 234, 0.09);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(184, 137, 43, 0.6);
+    border-radius: var(--radius);
+}
+
+.film-specs > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--hairline-light);
+}
+
+.film-specs > div:last-child {
+    border-bottom: none;
+}
+
+.film-specs dt {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+    padding-top: 3px;
+}
+
+.film-specs dd {
+    text-align: right;
+    color: var(--canvas-bg);
+}
+
+/* --- Core team: Donal Farm portfolio cards (see .box-portfolio-4) --- */
+.team-grid .box-portfolio-4 {
+    min-height: 430px;
+}
+
+/* ==========================================================================
+   4 · Enquiry & News
+   ========================================================================== */
+.news-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 34px 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+}
+
+.news-card:hover {
+    border-color: var(--line);
+}
+
+.news-date {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--brass-ink);
+    margin-bottom: 12px;
+}
+
+.news-card h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 27px;
+    line-height: 1.18;
+    color: var(--kumkum);
+    margin-bottom: 12px;
+}
+
+.news-card p:not(.news-date) {
+    font-size: 15.5px;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+}
+
+.news-card .btn-read {
+    margin-top: auto;
+}
+
+/* --- Enquiry panel --- */
+.enquiry {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    margin-top: 72px;
+    background: var(--card-bg);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.enquiry-aside {
+    padding: 48px 40px;
+    background: var(--canvas-deep);
+    border-right: 1px solid var(--hairline);
+}
+
+.enquiry-lotus {
+    width: 58px;
+    height: 36px;
+    color: var(--brass);
+    margin-bottom: 18px;
+}
+
+.enquiry-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(30px, 3.2vw, 40px);
+    line-height: 1.1;
+    color: var(--kumkum);
+    margin-bottom: 16px;
+}
+
+.enquiry-aside > p {
+    color: var(--ink-soft);
+}
+
+.enquiry-points {
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid var(--hairline-strong);
+}
+
+.enquiry-points li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 15px;
+    color: var(--timber);
+}
+
+.enquiry-points li + li {
+    margin-top: 8px;
+}
+
+.enquiry-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 7px;
+    height: 7px;
+    background: var(--brass);
+    transform: rotate(45deg);
+}
+
+.enquiry-form,
+.enquiry-success {
+    padding: 48px 40px;
+}
+
+.enquiry-form {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+}
+
+.enquiry-form[hidden] {
+    display: none;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Floating-label fields */
+.field {
+    position: relative;
+    min-width: 0;
+}
+
+.field input:not([type="file"]),
+.field select,
+.field textarea {
+    width: 100%;
+    padding: 25px 18px 9px;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--timber-dark);
+    background: var(--canvas-bg);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius);
+    outline: none;
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth), background var(--transition-smooth);
+}
+
+.field textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.field select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 44px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='%236E1423' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+}
+
+.field select:invalid {
+    color: var(--ink-soft);
+}
+
+.field > label:not(.upload) {
+    position: absolute;
+    left: 19px;
+    top: 17px;
+    font-size: 16px;
+    color: var(--ink-soft);
+    pointer-events: none;
+    transform-origin: 0 0;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.field input:focus + label:not(.upload),
+.field input:not(:placeholder-shown) + label:not(.upload),
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label,
+.field--select > label:not(.upload) {
+    transform: translateY(-11px) scale(0.74);
+    color: var(--brass-ink);
+    font-weight: 600;
+    letter-spacing: 0.6px;
+}
+
+.field input:not([type="file"]):focus,
+.field select:focus,
+.field textarea:focus {
+    background: #fff;
+    border-color: var(--brass);
+    box-shadow: 0 0 0 4px rgba(184, 137, 43, 0.18);
+}
+
+.field.has-error input:not([type="file"]),
+.field.has-error select,
+.field.has-error textarea,
+.field.has-error .upload {
+    border-color: var(--error);
+}
+
+.field-error {
+    min-height: 0;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--error);
+}
+
+.field-error:not(:empty) {
+    margin-top: 6px;
+}
+
+/* CV upload */
+.upload {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    background: var(--canvas-bg);
+    border: 1.5px dashed var(--brass);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.upload:hover,
+.upload.is-dragover {
+    background: #fff;
+    border-color: var(--kumkum);
+}
+
+.field--file input:focus-visible + .upload {
+    outline: 2px solid var(--saffron);
+    outline-offset: 3px;
+}
+
+.upload-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    color: var(--kumkum);
+    background: var(--brass-soft);
+    border-radius: 50%;
+}
+
+.upload-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.upload-text {
+    display: grid;
+    min-width: 0;
+}
+
+.upload-title {
+    font-weight: 600;
+    color: var(--kumkum);
+}
+
+.upload-hint {
+    font-size: 14px;
+    color: var(--ink-soft);
+    overflow-wrap: anywhere;
+}
+
+.upload.has-file .upload-hint {
+    color: var(--timber-dark);
+    font-weight: 500;
+}
+
+.upload-clear {
+    margin-top: 8px;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--kumkum);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    margin-top: 6px;
+}
+
+.form-status {
+    font-size: 14.5px;
+    color: var(--error);
+}
+
+/* Success state */
+.enquiry-success {
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 14px;
+    animation: success-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.enquiry-success[hidden] {
+    display: none;
+}
+
+.success-mark {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    color: var(--canvas-bg);
+    background: var(--kumkum);
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px rgba(184, 137, 43, 0.25);
+    animation: success-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.success-mark svg {
+    width: 34px;
+    height: 34px;
+}
+
+.enquiry-success h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--kumkum);
+    margin-top: 8px;
+}
+
+.enquiry-success p {
+    max-width: 44ch;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+}
+
+@keyframes success-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes success-pop {
+    from { transform: scale(0.4); }
+    to   { transform: scale(1); }
+}
+
+/* ==========================================================================
+   5 · Contact & footer — Mysore Palace behind everything
+   --------------------------------------------------------------------------
+   The headline sits in the twilight sky, the palace glows through the middle
+   and the contact details rest on the darkened forecourt.
+   ========================================================================== */
+.section--contact .section-overlay {
+    background: linear-gradient(to bottom,
+        rgba(251, 245, 234, 0.3) 0%,
+        rgba(251, 245, 234, 0) 30%,
+        rgba(20, 17, 24, 0) 58%,
+        rgba(20, 17, 24, 0.84) 80%,
+        rgba(20, 17, 24, 0.97) 100%);
+}
+
+.contact-head {
+    text-align: center;
+}
+
+.contact-head .section-title {
+    max-width: none;
+    color: var(--kumkum-deep);
+    margin-bottom: 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 44px;
+    align-items: start;
+}
+
+.contact-block h3 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+    margin-bottom: 12px;
+}
+
+.contact-block p {
+    color: var(--cream-90);
+}
+
+.email-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+}
+
+.email-link {
+    font-family: var(--font-heading);
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--canvas-bg);
+    border-bottom: 1px solid var(--brass);
+    overflow-wrap: anywhere;
+    transition: color var(--transition-smooth);
+}
+
+.email-link:hover {
+    color: var(--brass-soft);
+}
+
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--brass-soft);
+    background: transparent;
+    border: 1px solid rgba(221, 190, 124, 0.6);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background var(--transition-smooth), color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.copy-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.copy-btn:hover,
+.copy-btn.is-copied {
+    color: var(--timber-dark);
+    background: var(--brass-soft);
+    border-color: var(--brass-soft);
+}
+
+.contact-block .copy-status {
+    min-height: 1.7em;
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--brass-soft);
+}
+
+.social-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.social-list a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    color: var(--brass-soft);
+    border: 1px solid rgba(221, 190, 124, 0.55);
+    border-radius: 50%;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background var(--transition-smooth), color var(--transition-smooth);
+}
+
+.social-list svg {
+    width: 21px;
+    height: 21px;
+}
+
+.social-list a:hover {
+    transform: translateY(-4px);
+    color: var(--timber-dark);
+    background: var(--brass-soft);
+}
+
+.site-footer {
+    margin-top: 28px;
+    border-top: 1px solid var(--hairline-light);
+    padding: 18px 0 22px;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 32px;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    font-family: var(--font-deva);
+    font-size: 30px;
+    line-height: 1.3;
+    color: var(--brass-soft);
+}
+
+.footer-line {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 19px;
+    color: var(--cream-90);
+}
+
+.footer-copy {
+    font-size: 13.5px;
+    letter-spacing: 0.5px;
+    color: var(--cream-70);
+}
+
+/* --- Back to top --- */
+.back-to-top {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 900;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    color: var(--canvas-bg);
+    background: var(--kumkum);
+    border: 1px solid var(--brass-soft);
+    border-radius: 50%;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity var(--transition-smooth), transform var(--transition-smooth), visibility var(--transition-smooth);
+}
+
+.back-to-top svg {
+    width: 20px;
+    height: 20px;
+    transform: rotate(-90deg);
+}
+
+.back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Donal Farm Box Portfolio Style 4
+   --------------------------------------------------------------------------
+   After .box-portfolio.style-4 in donal_farm/css/styles.css: a thick rounded
+   brass frame around a photograph. At rest only the title shows; on hover the
+   photograph zooms, the panel deepens and the rest arrives in sequence —
+   icon (0.1s), accent line, text (0.2s), button (0.3s).
+   ========================================================================== */
+.box-portfolio-4 {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid var(--brass);
+    background: var(--canvas-card);
+    transition: all 0.4s ease;
+    min-height: 380px;
+    isolation: isolate;
+}
+
+.box-portfolio-4 .card-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.box-portfolio-4 .card-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 32px 24px;
+    text-align: center;
+    background: linear-gradient(to top, rgba(30, 21, 16, 0.92) 0%, rgba(30, 21, 16, 0.4) 60%, transparent 100%);
+    color: #FFFFFF;
+    transition: all 0.4s ease;
+}
+
+/* Icon: collapsed to nothing, pops in with a spring */
+.box-portfolio-4 .card-icon {
+    max-height: 0;
+    font-family: var(--font-deva);
+    font-size: 38px;
+    line-height: 1.4;
+    color: var(--brass-soft);
+    transform: scale(0);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.box-portfolio-4 .card-icon svg {
+    width: 62px;
+    height: 40px;
+    margin: 6px auto;
+}
+
+.box-portfolio-4 .card-kicker {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+    margin-bottom: 4px;
+}
+
+.box-portfolio-4 .card-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.15;
+    color: #FFFFFF;
+}
+
+/* Title accent line */
+.box-portfolio-4 .card-title::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 0;
+    margin: 0 auto;
+    background: var(--brass);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.box-portfolio-4 .card-text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #D6CBC0;
+    margin-top: 0;
+    transform: translateY(20px);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+.box-portfolio-4 .card-btn {
+    flex: none;
+    max-height: 0;
+    margin-top: 0;
+    padding: 0 24px;
+    overflow: hidden;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--canvas-bg);
+    background: var(--kumkum);
+    border-radius: 8px;
+    transform: translateY(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.box-portfolio-4 .card-btn:hover {
+    background: var(--brass);
+    color: var(--timber-dark);
+}
+
+/* --- Hover / keyboard focus: the staggered reveal --- */
+.box-portfolio-4:hover .card-bg-img,
+.box-portfolio-4:focus-within .card-bg-img {
+    transform: scale(1.08);
+}
+
+.box-portfolio-4:hover .card-content,
+.box-portfolio-4:focus-within .card-content {
+    padding-bottom: 36px;
+    background: linear-gradient(to top, rgba(30, 21, 16, 0.96) 0%, rgba(30, 21, 16, 0.84) 60%, rgba(30, 21, 16, 0.55) 100%);
+}
+
+.box-portfolio-4:hover .card-icon,
+.box-portfolio-4:focus-within .card-icon {
+    max-height: 70px;
+    margin-bottom: 10px;
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.1s;
+}
+
+.box-portfolio-4:hover .card-title::after,
+.box-portfolio-4:focus-within .card-title::after {
+    height: 3px;
+    margin-top: 14px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.box-portfolio-4:hover .card-text,
+.box-portfolio-4:focus-within .card-text {
+    margin-top: 14px;
+    transform: translateY(0);
+    opacity: 1;
+    max-height: 170px;
+    transition-delay: 0.2s;
+}
+
+.box-portfolio-4:hover .card-btn,
+.box-portfolio-4:focus-within .card-btn {
+    max-height: 46px;
+    margin-top: 18px;
+    padding: 11px 24px;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.3s;
+}
+
+/* Touch screens have no hover, so the cards rest in their open state there */
+@media (hover: none) {
+    .box-portfolio-4 .card-content {
+        padding-bottom: 36px;
+        background: linear-gradient(to top, rgba(30, 21, 16, 0.96) 0%, rgba(30, 21, 16, 0.84) 60%, rgba(30, 21, 16, 0.55) 100%);
+    }
+
+    .box-portfolio-4 .card-icon {
+        max-height: 70px;
+        margin-bottom: 10px;
+        transform: scale(1);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .box-portfolio-4 .card-title::after {
+        height: 3px;
+        margin-top: 14px;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .box-portfolio-4 .card-text {
+        margin-top: 14px;
+        transform: translateY(0);
+        opacity: 1;
+        max-height: none;
+    }
+
+    .box-portfolio-4 .card-btn {
+        max-height: 46px;
+        margin-top: 18px;
+        padding: 11px 24px;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* ==========================================================================
+   Donal Farm motion: 3D card lift & tilt, rotating cultural seal
+   ========================================================================== */
+
+/* Depth for the tilt: without perspective rotateX/rotateY only squash */
+.pillars,
+.values-grid,
+.card-grid {
+    perspective: 1200px;
+}
+
+/* 3D Card Hover Lift & Tilt */
+.donal-card, .pillar-card, .value-card, .team-card, .news-card {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, background var(--transition-smooth), border-color var(--transition-smooth);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* Hover-capable pointers only, so a tap on a phone does not leave a card tilted */
+@media (hover: hover) {
+    .donal-card:hover, .pillar-card:hover, .value-card:hover, .team-card:hover, .news-card:hover {
+        transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+        box-shadow: 0 20px 40px rgba(30, 21, 16, 0.18);
+    }
+}
+
+/* Donal Farm Rotating Circular Cultural Seal */
+@keyframes spinBadge {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.rotating-seal {
+    animation: spinBadge 18s linear infinite;
+    transform-origin: center center;
+}
+
+.rotating-seal:hover {
+    animation-play-state: paused;
+}
+
+.seal {
+    flex: none;
+    position: relative;
+    width: 136px;
+    height: 136px;
+    margin-top: 6px;
+    border-radius: 50%;
+    background: var(--kumkum);
+    box-shadow: 0 0 0 1px var(--brass), 0 0 0 6px rgba(251, 245, 234, 0.14), 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+.seal-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.seal-ring text {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    fill: var(--brass-soft);
+}
+
+.seal-core {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50px;
+    height: 32px;
+    color: var(--brass-soft);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Scroll reveal (only when JS is running)
+   ========================================================================== */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color var(--transition-smooth);
+}
+
+.js .reveal.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Stagger cards within a grid */
+.js .card-grid .reveal:nth-child(2),
+.js .pillars .reveal:nth-child(2) { transition-delay: 0.1s; }
+.js .card-grid .reveal:nth-child(3) { transition-delay: 0.2s; }
+
+/* The hover tilt must win over the reveal transform once a card is visible */
+@media (hover: hover) {
+    .js .pillar-card.reveal.visible:hover,
+    .js .news-card.reveal.visible:hover,
+    .js .donal-card.reveal.visible:hover,
+    .js .team-card.reveal.visible:hover {
+        transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color var(--transition-smooth);
+    }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .section--about {
+        padding: 200px 0 190px;
+    }
+
+    .section--film {
+        padding: 180px 0 230px;
+    }
+
+    .section--news {
+        padding: 88px 0 110px;
+    }
+
+    .nav-links {
+        gap: 22px;
+    }
+
+    .nav-logo-latin {
+        display: none;
+    }
+
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-grid--3 > :last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
+
+    .film-feature {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .enquiry {
+        grid-template-columns: 1fr;
+    }
+
+    .enquiry-aside {
+        border-right: none;
+        border-bottom: 1px solid var(--hairline);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-grid > :first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    :root {
+        --gutter: 20px;
+        --header-h: 64px;
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    /* The header is solid on mobile so the menu button stays legible, and
+       the hero starts beneath it rather than behind it */
+    .site-header {
+        background: rgba(251, 245, 234, 0.94);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .section--home {
+        padding: var(--header-h) 0 0;
+    }
+
+    .nav-logo-latin {
+        display: inline;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        inset: 0;
+        height: 100dvh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+        padding: 90px 30px 60px;
+        background: var(--canvas-bg);
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-links a {
+        font-family: var(--font-heading);
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+        transform: translateY(7.5px) rotate(45deg);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+        transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* Parallax off on mobile (as in TemplateMo 612). A phone-shaped section
+       would crop a landscape photograph to a sliver, so the image is held to
+       the first screenful and melts into the section tone below it. */
+    .parallax-bg {
+        top: 0;
+        height: min(100%, 78vh);
+        transition: none;
+    }
+
+    .section--about .parallax-bg { object-position: 24% 50%; }
+    .section--interlude .parallax-bg { object-position: 34% 50%; }
+    .section--film .parallax-bg { object-position: 76% 50%; }
+
+    .section-fade-top,
+    .section-fade-bottom {
+        height: 110px;
+    }
+
+    /* On a narrow screen a 70vh stage would crop the sculpted word itself,
+       so the altar is sized from the width instead */
+    .hero-image {
+        min-height: 0;
+        max-height: none;
+        height: 86vw;
+    }
+
+    .hero-stage::before {
+        display: none;
+    }
+
+    .hero-stage::after {
+        height: 38%;
+    }
+
+    .hero-overlay {
+        padding-bottom: 12px;
+    }
+
+    .hero-tagline {
+        font-size: 21px;
+    }
+
+    .ety-strip {
+        padding: 22px 0 30px;
+    }
+
+    .ety-grid {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 20px;
+    }
+
+    .ety-col {
+        padding: 4px 12px;
+    }
+
+    .ety-col--divided {
+        border-right: none;
+        border-left: 1px solid rgba(30, 21, 16, 0.15);
+    }
+
+    .ety-col--meaning {
+        grid-column: 1 / -1;
+        padding-top: 22px;
+        border-top: 1px solid rgba(30, 21, 16, 0.15);
+    }
+
+    .section--about {
+        padding: 160px 0 160px;
+    }
+
+    .about-head {
+        gap: 16px;
+        margin-bottom: 44px;
+    }
+
+    .seal {
+        width: 88px;
+        height: 88px;
+        margin-top: 0;
+    }
+
+    .seal-core {
+        width: 34px;
+        height: 22px;
+    }
+
+    .pillars {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .pillar {
+        padding: 30px 24px;
+    }
+
+    .subhead {
+        margin-top: 56px;
+    }
+
+    .values-grid,
+    .card-grid--3 {
+        grid-template-columns: 1fr;
+    }
+
+    .box-portfolio-4,
+    .team-grid .box-portfolio-4 {
+        min-height: 360px;
+    }
+
+    .card-grid {
+        gap: 16px;
+    }
+
+    /* Interlude: the figure stays in view above, the verse rests on the dusk below */
+    .section--interlude {
+        min-height: 0;
+        padding: 46vh 0 150px;
+    }
+
+    .section--interlude .section-overlay {
+        background: linear-gradient(to bottom, rgba(224, 122, 31, 0.2) 0%, rgba(74, 14, 24, 0.3) 34%, rgba(20, 17, 24, 0.86) 58%, rgba(20, 17, 24, 0.96) 100%);
+    }
+
+    .interlude-content {
+        max-width: none;
+    }
+
+    .section--film {
+        padding: 150px 0 200px;
+    }
+
+    .film-specs {
+        padding: 8px 22px;
+    }
+
+    .section--news {
+        padding: 72px 0 100px;
+    }
+
+    .enquiry {
+        margin-top: 56px;
+    }
+
+    .enquiry-aside,
+    .enquiry-form,
+    .enquiry-success {
+        padding: 32px 22px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .section--contact {
+        --mask-start: 72%;
+        min-height: 0;
+        padding-top: 120px;
+    }
+
+    .contact-head {
+        margin-bottom: 44vh;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 26px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-align: center;
+    }
+
+    .back-to-top {
+        right: 16px;
+        bottom: 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .nav-logo-latin {
+        display: none;
+    }
+
+    .ety-deva {
+        font-size: 36px;
+    }
+
+    .ety-meaning {
+        font-size: 20px;
+    }
+
+    .film-specs > div {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .film-specs dd {
+        text-align: left;
+    }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+    }
+
+    .parallax-bg {
+        transform: none !important;
+    }
+
+    .js .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    .rotating-seal,
+    .badge {
+        animation: none;
+    }
+
+    .donal-card:hover, .pillar-card:hover, .value-card:hover, .team-card:hover, .news-card:hover,
+    .js .pillar-card.reveal.visible:hover,
+    .js .news-card.reveal.visible:hover,
+    .js .donal-card.reveal.visible:hover,
+    .js .team-card.reveal.visible:hover {
+        transform: none;
+    }
+}
