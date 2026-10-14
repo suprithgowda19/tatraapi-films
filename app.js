@@ -36,6 +36,176 @@
     }
 
     // =============================================
+    // 0. Bal Krishna Stop-Motion Hero Canvas Scrubber
+    // =============================================
+    var heroCanvas = document.getElementById('heroCanvas');
+    var heroStage = document.getElementById('heroStage');
+    var heroTrack = document.getElementById('heroTrack');
+    var heroScrollCue = document.getElementById('heroScrollCue');
+    var heroCtx = heroCanvas ? heroCanvas.getContext('2d') : null;
+
+    var HERO_TOTAL_FRAMES = 20;
+    var heroFrames = [];
+    var heroLoadedCount = 0;
+    var heroCurrentFrame = 0;
+    var heroIsGiggling = false;
+    var heroAnimId = null;
+
+    function getHeroFrameSrc(index) {
+        var num = String(index + 1);
+        while (num.length < 3) num = '0' + num;
+        return 'assets/frame_' + num + '.jpg';
+    }
+
+    function drawHeroFrame(frameIndex) {
+        if (!heroCtx || !heroCanvas) return;
+        frameIndex = clamp(Math.round(frameIndex), 0, HERO_TOTAL_FRAMES - 1);
+        var img = heroFrames[frameIndex];
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+
+        heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+        heroCtx.drawImage(img, 0, 0, heroCanvas.width, heroCanvas.height);
+        heroCurrentFrame = frameIndex;
+    }
+
+    function animateHeroToFrame(targetFrame, duration, onComplete) {
+        cancelAnimationFrame(heroAnimId);
+        var startFrame = heroCurrentFrame;
+        var startTime = performance.now();
+
+        function step(now) {
+            var elapsed = now - startTime;
+            var progress = Math.min(elapsed / duration, 1);
+            // easeInOutQuad
+            var ease = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+            var current = startFrame + (targetFrame - startFrame) * ease;
+            drawHeroFrame(current);
+
+            if (progress < 1) {
+                heroAnimId = requestAnimationFrame(step);
+            } else {
+                heroAnimId = null;
+                if (typeof onComplete === 'function') onComplete();
+            }
+        }
+        heroAnimId = requestAnimationFrame(step);
+    }
+
+    function initHeroScrubber() {
+        if (!heroCanvas || !heroCtx || !heroStage) return;
+
+        for (var i = 0; i < HERO_TOTAL_FRAMES; i++) {
+            (function (idx) {
+                var img = new Image();
+                img.src = getHeroFrameSrc(idx);
+                img.onload = function () {
+                    heroLoadedCount++;
+                    if (heroLoadedCount === 1) {
+                        drawHeroFrame(0);
+                        heroStage.classList.add('hero-stage--canvas-ready');
+                    }
+                    if (heroLoadedCount === HERO_TOTAL_FRAMES) {
+                        // After everything is ready, trigger the initial playful peek
+                        setTimeout(function () {
+                            if (window.scrollY < 40 && !heroIsGiggling) {
+                                animateHeroToFrame(1, 450); // Frame 002: Krishna peeks over logo
+                            }
+                        }, 750);
+                    }
+                };
+                heroFrames.push(img);
+            })(i);
+        }
+
+        // Hover giggle on desktop
+        heroCanvas.addEventListener('mouseenter', function () {
+            if (window.scrollY > 80 || heroIsGiggling) return;
+            heroIsGiggling = true;
+            // Playful giggle sequence: tastes butter, giggles, looks up
+            animateHeroToFrame(6, 260, function () {
+                setTimeout(function () {
+                    animateHeroToFrame(7, 200, function () {
+                        setTimeout(function () {
+                            if (window.scrollY < 40) {
+                                animateHeroToFrame(1, 400, function () {
+                                    heroIsGiggling = false;
+                                });
+                            } else {
+                                heroIsGiggling = false;
+                                updateHeroScrubber();
+                            }
+                        }, 550);
+                    });
+                }, 300);
+            });
+        });
+
+        // Click on hero stage triggers giggle
+        heroCanvas.addEventListener('click', function () {
+            if (window.scrollY > 80 || heroIsGiggling) return;
+            heroIsGiggling = true;
+            animateHeroToFrame(6, 220, function () {
+                setTimeout(function () {
+                    animateHeroToFrame(1, 350, function () {
+                        heroIsGiggling = false;
+                    });
+                }, 400);
+            });
+        });
+    }
+
+    function updateHeroScrubber() {
+        var track = heroTrack || heroStage;
+        if (!heroCanvas || !heroStage || !track) return;
+
+        var rect = track.getBoundingClientRect();
+        var totalScrollable = track.offsetHeight - window.innerHeight;
+        if (totalScrollable <= 0) return;
+
+        // Current scroll within the track
+        var currentScroll = -rect.top;
+        var progress = clamp(currentScroll / totalScrollable, 0, 1);
+
+        // Fade overlay tagline & cue when scrolling starts
+        var overlay = heroStage.querySelector('.hero-overlay');
+        if (overlay) {
+            overlay.classList.toggle('is-scrolled', progress > 0.04);
+        }
+        if (heroScrollCue) {
+            heroScrollCue.classList.toggle('is-hidden', progress > 0.02);
+        }
+
+        // Dissolve transition at the very end when the pot pours
+        var exitOpacity = progress > 0.88 ? ((progress - 0.88) / 0.12) : 0;
+        heroStage.style.setProperty('--hero-exit-opacity', exitOpacity.toFixed(2));
+
+        if (heroIsGiggling || heroAnimId) return;
+
+        // Frame pacing across 20 frames (0 to 19):
+        // 0.00 -> 0.08: Frame 0 to 1 (stillness to Krishna peeking from logo)
+        // 0.08 -> 0.42: Frame 1 to 5 (crawling to pot, reaching inside, eating butter)
+        // 0.42 -> 0.68: Frame 5 to 8 (butter on face, innocent giggle)
+        // 0.68 -> 1.00: Frame 8 -> 19 (pot tilts, creamy butter pours forward into next section)
+        var targetFrame;
+        if (progress <= 0.08) {
+            targetFrame = (progress / 0.08) * 1.0;
+        } else if (progress <= 0.42) {
+            var p1 = (progress - 0.08) / 0.34;
+            targetFrame = 1.0 + p1 * 4.0;
+        } else if (progress <= 0.68) {
+            var p2 = (progress - 0.42) / 0.26;
+            targetFrame = 5.0 + p2 * 3.0;
+        } else {
+            var p3 = (progress - 0.68) / 0.32;
+            targetFrame = 8.0 + p3 * 11.0;
+        }
+
+        drawHeroFrame(targetFrame);
+    }
+
+    initHeroScrubber();
+
+    // =============================================
     // 1. Smooth Parallax Engine (TemplateMo 612)
     // =============================================
     function parallaxEnabled() {
@@ -172,6 +342,7 @@
     var ticking = false;
 
     function onFrame() {
+        updateHeroScrubber();
         updateParallax();
         handleNavScroll();
         updateActiveLink();

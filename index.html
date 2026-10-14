@@ -98,14 +98,20 @@
 
         <!-- ==================== 1 · Home ==================== -->
         <section class="section section--home" id="home" data-spy>
-            <div class="hero-stage">
-                <img class="hero-image"
-                     src="assets/hero_tatraapi_clean.jpg" width="1024" height="430"
-                     alt="A brass and maroon sculpture of the word तत्रापि on a wooden altar table, with a small brass Bal Krishna holding a butter pot on the left and a seated wooden robot on the right."
-                     fetchpriority="high">
-                <div class="hero-overlay">
-                    <h1 class="visually-hidden">Tatraapi Films — <span lang="sa">तत्रापि</span></h1>
-                    <p class="hero-tagline">Stories rooted in Indian thought for a global audience</p>
+            <div class="hero-scroll-track" id="heroTrack">
+                <div class="hero-stage" id="heroStage">
+                    <canvas id="heroCanvas" class="hero-canvas" width="1280" height="720" role="img" aria-label="Interactive stop-motion scene: Bal Krishna peeking from behind the Tatraapi logo, tasting butter from a clay matki, with a brass robot watching."></canvas>
+                    <img class="hero-image" id="heroFallbackImg"
+                         src="assets/frame_001.jpg" width="1280" height="720"
+                         alt="A brass and maroon sculpture of the word तत्रापि on a wooden altar table, with a small brass Bal Krishna holding a butter pot on the left and a seated wooden robot on the right."
+                         fetchpriority="high">
+                    <div class="hero-overlay">
+                        <h1 class="visually-hidden">Tatraapi Films — <span lang="sa">तत्रापि</span></h1>
+                        <p class="hero-tagline">Stories rooted in Indian thought for a global audience</p>
+                        <div class="hero-scroll-cue" id="heroScrollCue" aria-hidden="true">
+                            <span class="cue-pill"><span class="cue-dot"></span>Scroll to discover</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 

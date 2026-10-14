@@ -559,19 +559,48 @@ textarea {
 }
 
 /* ==========================================================================
-   1 · Home — full-width immersive altar
+   1 · Home — pinned immersive stop-motion altar scrollytelling
    ========================================================================== */
-.hero-stage {
+.hero-scroll-track {
     position: relative;
-    background: var(--timber-dark);
+    height: 250vh; /* gives ample runway for the 20-frame stop-motion story */
+}
+
+.hero-stage {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #141118;
+}
+
+.hero-canvas,
+.hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+}
+
+.hero-canvas {
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .hero-image {
-    width: 100%;
-    min-height: 70vh;
-    max-height: 85vh;
-    object-fit: cover;
-    object-position: center bottom;
+    z-index: 0;
+}
+
+.hero-stage--canvas-ready .hero-image {
+    display: none;
 }
 
 /* A breath of parchment behind the transparent nav */
@@ -580,33 +609,42 @@ textarea {
     position: absolute;
     inset: 0 0 auto 0;
     height: 130px;
-    background: linear-gradient(180deg, rgba(251, 245, 234, 0.7), rgba(251, 245, 234, 0));
+    background: linear-gradient(180deg, rgba(251, 245, 234, 0.75), rgba(251, 245, 234, 0));
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
 }
 
-/* The table dissolves into the parchment strip below */
+/* The table dissolves into parchment at the very end of scroll as the pot pours */
 .hero-stage::after {
     content: '';
     position: absolute;
     inset: auto 0 0 0;
-    height: 30%;
+    height: 22%;
     background: linear-gradient(0deg,
         var(--canvas-bg) 0%,
-        rgba(251, 245, 234, 0.82) 34%,
+        rgba(251, 245, 234, 0.85) 45%,
         rgba(251, 245, 234, 0) 100%);
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
+    opacity: var(--hero-exit-opacity, 0);
+    transition: opacity 0.2s ease;
 }
 
 .hero-overlay {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    z-index: 2;
-    padding: 0 var(--gutter) 22px;
+    bottom: 32px;
+    z-index: 3;
+    padding: 0 var(--gutter);
     text-align: center;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.hero-overlay.is-scrolled {
+    opacity: 0;
+    transform: translateY(-10px);
 }
 
 .hero-tagline {
@@ -617,6 +655,51 @@ textarea {
     line-height: 1.25;
     color: var(--timber-dark);
     text-wrap: balance;
+}
+
+.hero-scroll-cue {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hero-scroll-cue.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+}
+
+.cue-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(251, 245, 234, 0.88);
+    border: 1px solid rgba(139, 44, 26, 0.22);
+    border-radius: 999px;
+    font-size: 11px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--timber-dark);
+    box-shadow: 0 4px 16px rgba(42, 28, 20, 0.08);
+    backdrop-filter: blur(6px);
+}
+
+.cue-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #D97706;
+    box-shadow: 0 0 6px rgba(217, 119, 6, 0.6);
+    animation: cuePulse 1.8s infinite ease-in-out;
+}
+
+@keyframes cuePulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.4); opacity: 1; }
 }
 
 .hero-tagline::after {
@@ -1957,12 +2040,22 @@ textarea {
         height: 110px;
     }
 
-    /* On a narrow screen a 70vh stage would crop the sculpted word itself,
-       so the altar is sized from the width instead */
-    .hero-image {
+    .hero-scroll-track {
+        height: 200vh;
+    }
+
+    .hero-stage {
+        height: 100vh;
+        min-height: 100vh;
+    }
+
+    .hero-image,
+    .hero-canvas {
         min-height: 0;
         max-height: none;
-        height: 86vw;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
     }
 
     .hero-stage::before {
@@ -1970,7 +2063,7 @@ textarea {
     }
 
     .hero-stage::after {
-        height: 38%;
+        height: 25%;
     }
 
     .hero-overlay {
